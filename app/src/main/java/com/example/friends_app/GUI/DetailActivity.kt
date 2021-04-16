@@ -40,7 +40,7 @@ class DetailActivity : AppCompatActivity() {
     var mFile: File? = null
     private var fRep: FriendRepository? = null
 
-    private var checked by Delegates.notNull<Boolean>()
+    private var checked: Boolean = false
     private var isCreate: Boolean = false
     private lateinit var chosenFriend: BEFriend
     private var latitude by Delegates.notNull<Double>()
@@ -60,9 +60,16 @@ class DetailActivity : AppCompatActivity() {
                 toggleFavorite.isChecked = true
             }
             readPerson()
+            longitude = chosenFriend.longitude
+            latitude = chosenFriend.latitude
+            imagePath = chosenFriend.imagePath.toString()
         } else {
             layoutActivities.visibility = View.INVISIBLE
             btnShowLocation.visibility = View.INVISIBLE
+            latitude = 0.0
+            longitude = 0.0
+            imagePath = ""
+
         }
 
         toggleFavorite.setOnCheckedChangeListener { _, isChecked ->
@@ -102,7 +109,7 @@ class DetailActivity : AppCompatActivity() {
         val birthday = editTextBirthday.text.toString()
         val website = editTextWebsite.text.toString()
         val email = editTextEmail.text.toString()
-        val location = LatLng(latitude, longitude)
+        val location= LatLng(latitude, longitude)
         val img = imagePath ?: ""
         if (isCreate) {
             val newFriend = BEFriend(0, name, number, address, isFavorite, email, website, birthday, location.latitude, location.longitude, img)
