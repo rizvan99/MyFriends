@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity(), RecycleAdapter.RowClickListener {
     private val RESULT_CODE_DELETE = 3
     private val RESULT_CODE_UPDATE = 4
 
-    // private val friends = ArrayList<BEFriend>()
-    // private val friendAdapter = RecycleAdapter()
     lateinit var friendAdapter: RecycleAdapter
     private lateinit var clickedFriend: BEFriend
 
@@ -52,16 +50,6 @@ class MainActivity : AppCompatActivity(), RecycleAdapter.RowClickListener {
             friendAdapter.setListData(ArrayList(it))
             friendAdapter.notifyDataSetChanged()
         })
-
-
-        /*friendAdapter.itemClickListener = { position, _ ->
-            val intent = Intent(this, DetailActivity::class.java)
-            val friend = mRep.getById(position) as BEFriend
-            pos = position
-            intent.putExtra("friend", friend)
-            intent.putExtra("isCreate", false)
-            startActivityForResult(intent, 2)
-        }*/
 
     }
 

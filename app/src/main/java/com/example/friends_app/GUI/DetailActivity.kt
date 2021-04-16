@@ -42,8 +42,6 @@ class DetailActivity : AppCompatActivity() {
 
     private var checked by Delegates.notNull<Boolean>()
     private var isCreate: Boolean = false
-    // private var locationForCreate: LatLng = LatLng(0.0,0.0)
-    // private lateinit var imagePath: String
     private lateinit var chosenFriend: BEFriend
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -256,8 +254,6 @@ class DetailActivity : AppCompatActivity() {
         chosenFriend.imagePath = Uri.fromFile(f).toString()
         img.setImageURI(Uri.fromFile(f))
         img.scaleType = ImageView.ScaleType.CENTER_CROP
-        // Try to scale img.scaleX
-
     }
 
 }
