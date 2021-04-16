@@ -43,6 +43,9 @@ class DetailActivity : AppCompatActivity() {
     private var checked by Delegates.notNull<Boolean>()
     private var isCreate: Boolean = false
     private lateinit var chosenFriend: BEFriend
+    private var latitude by Delegates.notNull<Double>()
+    private var longitude by Delegates.notNull<Double>()
+    private var imagePath by Delegates.notNull<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +62,7 @@ class DetailActivity : AppCompatActivity() {
             readPerson()
         } else {
             layoutActivities.visibility = View.INVISIBLE
+            btnShowLocation.visibility = View.INVISIBLE
         }
 
         toggleFavorite.setOnCheckedChangeListener { _, isChecked ->
@@ -98,8 +102,8 @@ class DetailActivity : AppCompatActivity() {
         val birthday = editTextBirthday.text.toString()
         val website = editTextWebsite.text.toString()
         val email = editTextEmail.text.toString()
-        val location = LatLng(chosenFriend.latitude, chosenFriend.longitude)
-        val img = chosenFriend.imagePath ?: ""
+        val location = LatLng(latitude, longitude)
+        val img = imagePath ?: ""
         if (isCreate) {
             val newFriend = BEFriend(0, name, number, address, isFavorite, email, website, birthday, location.latitude, location.longitude, img)
             intent.putExtra("newFriend", newFriend)
@@ -239,8 +243,8 @@ class DetailActivity : AppCompatActivity() {
         if (resultCode === 50) {
             val location = data?.extras?.get("newLocation") as LatLng
             txtGetLocation.text = location.toString()
-            chosenFriend.latitude = location.latitude
-            chosenFriend.longitude = location.longitude
+            latitude = location.latitude
+            longitude = location.longitude
         }
     }
 
@@ -251,7 +255,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showImageFromFile(img: ImageView, txt: TextView?, f: File) {
-        chosenFriend.imagePath = Uri.fromFile(f).toString()
+        imagePath = Uri.fromFile(f).toString()
         img.setImageURI(Uri.fromFile(f))
         img.scaleType = ImageView.ScaleType.CENTER_CROP
     }
